@@ -1,0 +1,76 @@
+{
+	"easycom": {
+			"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+		},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+            "path" : "pages/luckbox/luckbox",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "盒子模拟器",
+                "enablePullDownRefresh": true
+            }
+            
+        },{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "盒子查看器"
+			}
+		},{
+			"path": "pages/aboutme/aboutme",
+			"style": {
+				"navigationBarTitleText": "关于我"
+			}
+		},{
+			"path": "pages/comment/comment",
+			"style": {
+				"navigationBarTitleText": "论坛区"
+			}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	},
+	"tabBar":{
+		"list":[
+			{
+				"text":"首页",
+				"pagePath":"pages/luckbox/luckbox",
+				"iconPath":"static/luckbox.png",
+				"selectedIconPath":"static/luckboxopen.png"
+			},
+			// {
+			// 	"text":"详情",
+			// 	"pagePath":"pages/index/index",
+			// 	"iconPath":"static/boxdetail.png",
+			// 	"selectedIconPath":"static/boxdetailopen.png"
+			// },
+			// {
+			// 	"text":"评论",
+			// 	"pagePath":"pages/comment/comment",
+			// 	"iconPath":"static/comment.png",
+			// 	"selectedIconPath":"static/commentopen.png"
+			// },
+			{
+				"text":"联系我·",
+				"pagePath":"pages/aboutme/aboutme",
+				"iconPath":"static/aboutme.png",
+				"selectedIconPath":"static/aboutmeopen.png"
+			}
+			
+		]
+	}
+}
