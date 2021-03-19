@@ -1,51 +1,70 @@
 <template>
 	<view>
-		<view  class="myForm">
-		<u-form :model="form" ref="uForm" label-width="200rpx !important">
-			<u-form-item label="请选择盒子">
-				<!-- <u-radio-group type="select">
+		<view class="myForm">
+			<u-form :model="form" ref="uForm" label-width="200rpx !important">
+				<u-form-item label="请选择盒子">
+					<!-- <u-radio-group type="select">
 					<u-radio v-model="value" v-for="(item) in testData.boxData" :disabled="disabled" :key="item.data" :name="item.name" :value="item.data">
 						{{ item.name }}
 					</u-radio>
 				</u-radio-group> -->
-				<u-input :border="border" type="select" :select-open="selectShow" v-model="boxValue" placeholder="请选择盒子" @click="selectShow = true"></u-input>
+					<u-input :border="border" type="select" :select-open="selectShow" v-model="boxValue" placeholder="请选择盒子" @click="selectShow = true"></u-input>
 
-			</u-form-item>
+				</u-form-item>
 
-			<u-form-item label="请输入数量">
-				<u-input v-model="form.num" :type="type" placeholder="盒子数量为1~50"/>
-			</u-form-item>
-		</u-form>
+				<u-form-item label="请输入数量">
+					<u-input v-model="form.num" :type="type" placeholder="盒子数量为1~50" />
+				</u-form-item>
+			</u-form>
 		</view>
 
 		<u-select v-model="selectShow" mode="mutil-column-auto" :list="list" @confirm="selectConfirm"></u-select>
 
-		<view class="myButton" ><u-button type="primary" @click="onSeeChance" :ripple="true">查看盒子详情</u-button></view>
-		<view class="myButton" ><u-button type="primary" @click="onSubmit" :ripple="true">开启欧皇之旅</u-button></view>
-		<view class="myButton" ><u-button type="primary" @click="onSeeAll" :ripple="true">查看本次打开的所有盒子</u-button></view>
-
+		<view class="myButton">
+			<u-button type="primary" @click="onSeeChance" :ripple="true">查看盒子详情</u-button>
+		</view>
+		<view class="textC">
+			<text>选择盒子类型，输入数量，点击开始抽奖即可体验抽奖的乐趣。</text>
+		</view>
+		<view class="myButton">
+			<u-button type="primary" @click="onSubmit" :ripple="true">开始抽奖</u-button>
+		</view>
+		<view class="myButton">
+			<u-button type="primary" @click="onSeeAll" :ripple="true">查看本次打开的所有盒子</u-button>
+		</view>
+		<ad unit-id="adunit-f12e04361a70c0c1"></ad>
 		<!-- <u-button @click="myclick"> get </u-button> -->
 
 		<view v-if="sumSee" v-for="(o,index) in sum" :key="index">
 			<text>一共打开了{{ o[1] }} 个 {{ o[0] }}</text>
 		</view>
-		
+
 		<!-- <u-card v-if="allData != ''">
 		  <view v-for="o in allData" >
 			<view v-if="o[0] != '0'"> {{ o[1] }} {{ o[0] }}次 </view>
 		  </view>
 		  <view>{{allData}}</view>
 		</u-card> -->
-		
-		
-		  <view v-for="(o,index) in allData" v-if="allData != ''" :key="index">
+
+
+		<view v-for="(o,index) in allData" v-if="allData != ''" :key="index">
 			<view v-if="o[0] != '0'"> {{ o[1] }} {{ o[0] }}次 </view>
-		  </view>
-		 
-		<view class="myButtonClear"><u-button type="primary" @click="clear" :plain="true" :ripple="true">清空背包</u-button></view>
+		</view>
+
+		<view class="myButtonClear">
+			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空背包</u-button>
+		</view>
+		<view class="textC">
+			<text>如果你想直接抽取3000次，不想自己点击，可以使用拉满功能哦，广告结束即可获得结果。</text>
+			<text>不过建议还是按照次数点击，更有抽奖的乐趣。</text>
+		</view>
+		<view class="myButton">
+			<u-button type="primary" @click="onSubmit3k" :ripple="true">拉满(3k盒子)</u-button>
+		</view>
+
 		<u-top-tips ref="uTips"></u-top-tips>
-		<u-popup v-model="showPopup" mode="left" border-radius="14" >
-			<view  v-for="(a , index) in onSeeChanceForceData" :key="index" class="myPopup">
+		<u-popup v-model="showPopup" mode="left" border-radius="14">
+			<view v-for="(a , index) in onSeeChanceForceData" :key="index" class="myPopup">
 				{{a}}
 			</view>
 		</u-popup>
@@ -53,7 +72,6 @@
 </template>
 
 <script>
-	
 	import store from '@/store';
 	export default {
 		data() {
@@ -64,7 +82,7 @@
 				show: true,
 				boxValue: '',
 				selectShow: false,
-				type:"number"  ,
+				type: "number",
 				// list: [
 				// 	{
 				// 		value: 5,
@@ -259,7 +277,7 @@
 				// 		}, ]
 				// 	}
 				// ],
-				list:[],
+				list: [],
 				value: null,
 				sum: [],
 				sumSee: false,
@@ -269,14 +287,50 @@
 					num: "",
 					value: "",
 				},
-				onSeeChanceForceData:'',
-				showPopup:false,
-				boxDataAll:[],
+				onSeeChanceForceData: '',
+				showPopup: false,
+				boxDataAll: [],
+				videoAd : null
 			}
 		},
-		
-		onLoad(){
+
+		onLoad() {
 			this.myclick();
+			
+			// 在页面中定义激励视频广告
+			
+			
+			// 在页面onLoad回调事件中创建激励视频广告实例
+			if (wx.createRewardedVideoAd) {
+			  this.videoAd = wx.createRewardedVideoAd({
+			    adUnitId: 'adunit-38f6375c5c1294f4'
+			  })
+			  this.videoAd.onLoad(() => {})
+			  this.videoAd.onError((err) => {})
+			  this.videoAd.onClose((status) => {
+				  if (status && status.isEnded || status === undefined) {
+				          // 正常播放结束，下发奖励
+				          // continue you code
+						  console.log('succeed1');
+						  this.onSubmit(3000)
+				        } else {
+				          // 播放中途退出，进行提示
+						  console.log('succeed2')
+						  this.$refs.uTips.show({
+						  	title: '要查看完整广告才能获得奖励哦',
+						  	type: 'error',
+						  	duration: '2300'
+						  });
+				        }
+			
+			  })
+			}
+			
+			// 用户触发广告后，显示激励视频广告
+			
+			
+			
+			
 		},
 		methods: {
 			// 点击actionSheet回调
@@ -287,13 +341,13 @@
 				this.boxValue = '';
 				e.map((val, index) => {
 					this.boxValue += this.boxValue == '' ? val.label : '-' + val.label;
-					this.form.value=val.value;
+					this.form.value = val.value;
 				})
 			},
 			myclick() {
 				console.log("1212121~!!!!")
 				uni.request({
-					url: "https://yh.jackjam.xyz/static/test_data.json",
+					url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/test_data.json?sign=695dc24e9b8b3e4b4e4537af61e5a8aa&t=1615987223",
 					method: "GET",
 					success: (res) => {
 						this.testData = res.data;
@@ -302,30 +356,36 @@
 					}
 				});
 				uni.request({
-					url: "https://yh.jackjam.xyz/static/allDataUsed.json",
+					url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/allDataUsed.json?sign=a825c023cd0fb539ca171b3fcb49009e&t=1615983691",
 					method: "GET",
 					success: (res) => {
 						console.log(res.data);
-						this.list=res.data[0];
-						this.boxDataAll=res.data[1];
+						this.list = res.data[0];
+						this.boxDataAll = res.data[1];
 						// this.testData = res.data;
 						// store.commit('setTestValue', res.data);
 						// console.log(res.data)
 					}
 				});
+
 			},
-			onSubmit() {
+			onSubmit(myNumber) {
 				this.sumSee = false;
 
 				console.log("submit!");
 				console.log(this.form.num);
 				console.log(this.form.value);
-
+				if (myNumber == 3000) {
+					this.form.num = 1;
+				}
 				if (
 					Number(this.form.num) <= 50 &&
 					Number(this.form.num) > 0 &&
-					this.form.value !== null
+					this.form.value !== ""
 				) {
+					if(myNumber == 3000) {
+						this.form.num = Number(myNumber);	
+					}
 					var boxDataAll = this.boxDataAll;
 					console.log(boxDataAll);
 					console.log('/*/*/*/*/*/*/*/*/*/*/*/*/*')
@@ -337,7 +397,7 @@
 							}
 						});
 					});
-					
+
 					console.log("123");
 					console.log(this.sumData);
 					console.log(this.allData);
@@ -429,19 +489,45 @@
 					// console.log('allDataTrans');
 					this.sumData.push(allDataAfterTrans);
 
-					console.log("this.sumData",this.sumData);
-					console.log("this.sum",this.sum);
-					console.log("this.allData",this.allData);
+					console.log("this.sumData", this.sumData);
+					console.log("this.sum", this.sum);
+					console.log("this.allData", this.allData);
 				} else {
 					this.$refs.uTips.show({
 						title: '盒子数量为1~50,请不要打开太多',
 						type: 'error',
 						duration: '2300'
 					});
-					
+
 				}
 			},
+			onSubmit3k(){
+				
+				if (this.form.value !== "") {
+					
+					if (this.videoAd) {
+					  this.videoAd.show().catch(() => {
+						// 失败重试
+						this.videoAd.load()
+						  .then(() => {
+							  this.videoAd.show();
+							  // this.onSubmit(3000);
+							  })
+						  .catch(err => {
+							console.log('激励视频 广告显示失败')
+						  })
+					  });
+					 
+					}
+				}else {
+					this.$refs.uTips.show({
+						title: '请选择盒子类型',
+						type: 'error',
+						duration: '2300'
+					});
 
+				}
+			},
 			open(e) {
 				if (Number(e.target.value) > 50 || Number(e.target.value) <= 0)
 					this.$refs.uTips.show({
@@ -508,7 +594,7 @@
 					console.log(this.boxValue);
 					let newHezi = this.$store.state.testData[this.form.value];
 					let str = [];
-					str.push(this.boxValue+'的详情');
+					str.push(this.boxValue + '的详情');
 					str.push(' ');
 					// newHezi.forEach(item => {
 					// 	str = str + "<p>" + item.name + " " + item.chance + "% " + "</p>";
@@ -518,9 +604,9 @@
 						str.push(a);
 					});
 					console.log(str);
-					this.onSeeChanceForceData=str;
-					this.showPopup=true;
-					
+					this.onSeeChanceForceData = str;
+					this.showPopup = true;
+
 				} else {
 					this.$refs.uTips.show({
 						title: '请选择盒子类型',
@@ -537,14 +623,31 @@
 				this.allData = "";
 				this.form.num = "";
 				this.form.value = "";
-				this.boxValue =""
+				this.boxValue = ""
 				this.$refs.uTips.show({
 					title: '清空背包成功',
 					type: 'success',
 					duration: '2300'
 				})
-						
+
+			},
+			onShareAppMessage: function(e) {
+				let title = '盒子模拟器'
+				return {
+					title: title,
+					path: 'pages/luckbox/luckbox'
+				}
+			},
+			onShareTimeline() {
+
+				let title = '盒子模拟器'
+				return {
+					title: title,
+					query: '',
+					imageUrl: 'https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/miniproject.png?sign=fc4192a8be6eebc6078e20bac23fac82&t=1616030627',
+				}
 			}
+
 		}
 	}
 </script>
@@ -575,14 +678,17 @@
 </style>
 
 <style>
-	
 	.myPopup {
 		margin: 10rpx 20rpx;
 	}
+
 	.myButtonClear {
 		margin-left: 60%;
 		/* margin-top: -60%; */
 		padding: 10rpx;
 		font-size: 14rpx;
+	}
+	.textC{
+		margin-left: 10rpx;
 	}
 </style>

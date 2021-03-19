@@ -65,7 +65,7 @@
 			// 	"selectedIconPath":"static/commentopen.png"
 			// },
 			{
-				"text":"联系我·",
+				"text":"关于我",
 				"pagePath":"pages/aboutme/aboutme",
 				"iconPath":"static/aboutme.png",
 				"selectedIconPath":"static/aboutmeopen.png"
