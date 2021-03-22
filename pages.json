@@ -3,6 +3,7 @@
 			"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 		},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
 		{
             "path" : "pages/luckbox/luckbox",
             "style" :                                                                                    
@@ -25,6 +26,11 @@
 			"path": "pages/comment/comment",
 			"style": {
 				"navigationBarTitleText": "论坛区"
+			}
+		},{
+			"path": "pages/dreamhall/dreamhall",
+			"style": {
+				"navigationBarTitleText": "皮肤の回廊"
 			}
 		}
     ],
@@ -64,6 +70,13 @@
 			// 	"iconPath":"static/comment.png",
 			// 	"selectedIconPath":"static/commentopen.png"
 			// },
+			
+			{
+				"text":"皮肤の回廊",
+				"pagePath":"pages/dreamhall/dreamhall",
+				"iconPath":"static/skin.png",
+				"selectedIconPath":"static/skinopen.png"
+			},
 			{
 				"text":"关于我",
 				"pagePath":"pages/aboutme/aboutme",
