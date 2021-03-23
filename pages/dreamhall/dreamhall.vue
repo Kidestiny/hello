@@ -166,14 +166,14 @@
 
 			},
 			onSubmit(myNumber) {
-				this.sumSee = true;
-				this.chipSee = true;
-				this.disabled = true;
+				
 				console.log("submit!");
 				console.log(this.value);
 
 				if (this.value !== null) {
-
+					this.sumSee = true;
+					this.chipSee = true;
+					this.disabled = true;
 					var boxDataAll = this.boxDataAll;
 					console.log(boxDataAll);
 					console.log('/*/*/*/*/*/*/*/*/*/*/*/*/*')
@@ -323,7 +323,7 @@
 			},
 			onSubmit50() {
 
-				if (this.value !== "") {
+				if (this.value !== null) {
 
 					if (this.videoAd) {
 						this.videoAd.show().catch(() => {
