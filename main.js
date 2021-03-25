@@ -6,7 +6,7 @@ Vue.use(uView);
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 App.mpType = 'app'
-console.log = () => {}
+// console.log = () => {}
 const app = new Vue({
 	store,
     ...App

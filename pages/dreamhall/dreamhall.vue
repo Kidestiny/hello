@@ -24,7 +24,7 @@
 				<u-button type="primary" @click="onSubmit(5)" :ripple="true" :disabled="chip==25">抽5次</u-button>
 			</view>
 			<!-- <view class="myButtonIn">
-				<u-button type="primary" @click="onSubmit(20)" :ripple="true" :disabled="chip==25">抽20次</u-button>
+				<u-button type="primary" @click="onSubmit(50)" :ripple="true" :disabled="chip==25">抽50次</u-button>
 			</view> -->
 		</view>
 
@@ -55,7 +55,7 @@
 		</view>
 				<view v-if="chipSee">
 					<text>一共获得了{{ chip }} 个碎片。</text>
-					<text v-if="chip==25">恭喜获得了史诗皮肤，请清空已经抽取的物品，继续开始</text>
+					<text v-if="chip==25">恭喜获得了传说皮肤，请清空已经抽取的物品，继续开始</text>
 				</view>
 		<view class="myButtonClear">
 			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空已经抽取的物品</u-button>
@@ -428,9 +428,10 @@
 				
 				for(let i = 0 ; i<num;i++){
 					let rand = Math.random()*100;
-				
+					console.log('随机数结果第',i,'次',rand,chance[this.chip],this.chip);
 					if( rand < chance[this.chip])
 						this.chip = this.chip + 1;
+					
 				}
 				if(this.chip>25)
 					this.chip=25;

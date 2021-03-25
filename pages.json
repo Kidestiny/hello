@@ -12,22 +12,27 @@
                 "enablePullDownRefresh": true
             }
             
-        },{
+        },
+		//#ifndef MP-QQ
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "盒子查看器"
 			}
 		},{
+			"path": "pages/comment/comment",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		//#endif
+		{
 			"path": "pages/aboutme/aboutme",
 			"style": {
 				"navigationBarTitleText": "关于我"
 			}
-		},{
-			"path": "pages/comment/comment",
-			"style": {
-				"navigationBarTitleText": "论坛区"
-			}
-		},{
+		},
+		{
 			"path": "pages/dreamhall/dreamhall",
 			"style": {
 				"navigationBarTitleText": "皮肤の回廊"
@@ -51,6 +56,15 @@
 		]
 	},
 	"tabBar":{
+		
+		//#ifdef MP-QQ
+		"color": "#000000",
+		"selectedColor": "#32CD32",
+		"backgroundColor": "#FFFFFF",
+		//#endif
+		
+		
+		
 		"list":[
 			{
 				"text":"首页",
