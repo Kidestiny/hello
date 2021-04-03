@@ -36,7 +36,9 @@
 		<view class="myButton">
 			<u-button type="primary" @click="onSeeChance" :ripple="true" >查看皮肤寻宝详情</u-button>
 		</view>
-		<ad unit-id="adunit-92a3574ac3dbc832"></ad>
+		<!-- #ifdef MP-WEIXIN -->
+		<ad unit-id="adunit-042aa864551b3b7e" ad-type="video" ad-theme="white"></ad>
+		<!-- #endif -->
 		<view v-if="sumSee" v-for="(o,index) in sum" :key="index">
 			<text>一共寻宝了{{ o[1] }} 次。花费了{{o[1]*300}}元宝， 共获得如下的奖励：
 				<!-- 个 {{ o[0] }} --></text>
@@ -55,11 +57,15 @@
 		</view>
 				<view v-if="chipSee">
 					<text>一共获得了{{ chip }} 个碎片。</text>
-					<text v-if="chip==25">恭喜获得了传说皮肤，请清空已经抽取的物品，继续开始</text>
+					<text v-if="chip==25">恭喜获得了传说皮肤{{dataValue}}，请清空已经抽取的物品，继续开始</text>
 				</view>
 		<view class="myButtonClear">
 			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空已经抽取的物品</u-button>
 		</view>
+		
+		
+		<!-- #ifdef MP-WEIXIN -->
+		
 		<view class="textC">
 			<text>如果你想直接抽取50次（不建议），可以使用拉满功能哦，广告结束即可获得结果。</text>
 			<text>不过建议还是按照次数点击，更有抽奖的乐趣。</text>
@@ -68,17 +74,23 @@
 			<u-button type="primary" @click="onSubmit50" :ripple="true" :disabled="chip==25">拉满50次(不建议)</u-button>
 		</view>
 
+		<!-- #endif -->
+		
+		
 		<u-top-tips ref="uTips"></u-top-tips>
 		<u-popup v-model="showPopup" mode="left" border-radius="14">
 			<view v-for="(a , index) in onSeeChanceForceData" :key="index" class="myPopup">
 				{{a}}
 			</view>
 		</u-popup>
+		<myTipTop :showPopup="chip==2" :name="dataValue" :src="picSrc"></myTipTop>
 	</view>
 </template>
 
 <script>
 	import store from '@/store';
+	import configURL from '@/configNetwork.js';
+	import myTipTop from '@/components/tipTop/tipTop.vue'
 	export default {
 		data() {
 			return {
@@ -94,7 +106,7 @@
 				type: "number",
 				dreamHallData: '',
 				list: [],
-				value: null,
+				value: null,          //对应的拿到的武将的名字的缩写
 				sum: [],
 				sumSee: false,
 				sumData: [],
@@ -106,6 +118,8 @@
 				videoAd: null,
 				skinData: [],
 				disabled: false,
+				picSrc:"",
+				dataValue:"",       //value对应的汉字
 			}
 		},
 
@@ -152,7 +166,8 @@
 			myclick() {
 				console.log("1212121~!!!!")
 				uni.request({
-					url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/dreanHallData.json?sign=1a8ad80be94014a9b12b5c5c0c85dfc6&t=1616408834",
+					// url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/dreanHallData.json?sign=1a8ad80be94014a9b12b5c5c0c85dfc6&t=1616408834",
+					url: configURL.dreanHallData,
 					method: "GET",
 					success: (res) => {
 						this.dreamHallData = res.data[0];
@@ -174,6 +189,13 @@
 					this.sumSee = true;
 					this.chipSee = true;
 					this.disabled = true;
+					this.dreamHallData.forEach((item)=>{
+						if(item.data==this.value){
+							this.dataValue=item.name;
+							this.picSrc=item.src;
+						}
+					})
+					// console.log(this.dataValue,this.picSrc,"!@#$%^&**()")
 					var boxDataAll = this.boxDataAll;
 					console.log(boxDataAll);
 					console.log('/*/*/*/*/*/*/*/*/*/*/*/*/*')
@@ -437,6 +459,9 @@
 					this.chip=25;
 			}
 
+		},
+		components:{
+			myTipTop,
 		}
 	}
 </script>

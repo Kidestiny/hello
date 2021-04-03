@@ -32,7 +32,9 @@
 		<view class="myButton">
 			<u-button type="primary" @click="onSeeAll" :ripple="true">查看本次打开的所有盒子</u-button>
 		</view>
+		<!-- #ifdef MP-WEIXIN -->
 		<ad unit-id="adunit-f12e04361a70c0c1"></ad>
+		<!-- #endif -->
 		<!-- <u-button @click="myclick"> get </u-button> -->
 
 		<view v-if="sumSee" v-for="(o,index) in sum" :key="index">
@@ -54,6 +56,8 @@
 		<view class="myButtonClear">
 			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空背包</u-button>
 		</view>
+		
+		<!-- #ifdef MP-WEIXIN -->
 		<view class="textC">
 			<text>如果你想直接抽取3000次，不想自己点击，可以使用拉满功能哦，广告结束即可获得结果。</text>
 			<text>不过建议还是按照次数点击，更有抽奖的乐趣。</text>
@@ -62,6 +66,7 @@
 			<u-button type="primary" @click="onSubmit3k" :ripple="true">拉满(3k盒子)</u-button>
 		</view>
 
+		<!-- #endif -->
 		<u-top-tips ref="uTips"></u-top-tips>
 		<u-popup v-model="showPopup" mode="left" border-radius="14">
 			<view v-for="(a , index) in onSeeChanceForceData" :key="index" class="myPopup">
@@ -73,6 +78,7 @@
 
 <script>
 	import store from '@/store';
+	import configURL from '@/configNetwork.js';
 	export default {
 		data() {
 			return {
@@ -347,7 +353,9 @@
 			myclick() {
 				console.log("1212121~!!!!")
 				uni.request({
-					url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/test_data.json?sign=695dc24e9b8b3e4b4e4537af61e5a8aa&t=1615987223",
+					// url:"https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/luckboxTest.js?sign=b2c037e88f556adbc4d5f4b30afe7fd0&t=1617278680",
+					// url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/test_data.json?sign=695dc24e9b8b3e4b4e4537af61e5a8aa&t=1615987223",
+					url:configURL.luckbox,
 					method: "GET",
 					success: (res) => {
 						this.testData = res.data;
@@ -356,7 +364,9 @@
 					}
 				});
 				uni.request({
-					url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/allDataUsed.json?sign=a825c023cd0fb539ca171b3fcb49009e&t=1615983691",
+					//url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/allDataUsed.json?sign=a825c023cd0fb539ca171b3fcb49009e&t=1615983691",
+					// url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/allDataUsedTest.json?sign=8107b4372f91d2f1c74425588cf0133b&t=1617277072",
+					url:configURL.allDateUsed,
 					method: "GET",
 					success: (res) => {
 						console.log(res.data);
@@ -635,7 +645,8 @@
 				let title = '盒子模拟器'
 				return {
 					title: title,
-					path: 'pages/luckbox/luckbox'
+					path: 'pages/luckbox/luckbox',
+					imageUrl: 'https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/shareBox.png?sign=22d7ba1f31fb52d4c2bbd4db16d91826&t=1617197912',
 				}
 			},
 			onShareTimeline() {

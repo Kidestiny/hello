@@ -22,14 +22,14 @@
 		},{
 			"path": "pages/comment/comment",
 			"style": {
-				"navigationBarTitleText": "详情"
+				"navigationBarTitleText": "免责声明|隐私政策"
 			}
 		},
 		//#endif
 		{
 			"path": "pages/aboutme/aboutme",
 			"style": {
-				"navigationBarTitleText": "关于我"
+				"navigationBarTitleText": "关于我&我要抽武将"
 			}
 		},
 		{
@@ -38,6 +38,20 @@
 				"navigationBarTitleText": "皮肤の回廊"
 			}
 		}
+        // ,{
+        //     "path" : "components/tipTop/tipTop",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "",
+        //         "enablePullDownRefresh": false
+        //     }
+            
+        // }
+		// ,
+		// {
+		// 	"path": "components/tipTop/tipTop",
+		// 	"style": {}
+		// }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -92,7 +106,7 @@
 				"selectedIconPath":"static/skinopen.png"
 			},
 			{
-				"text":"关于我",
+				"text":"关于我&我要抽武将",
 				"pagePath":"pages/aboutme/aboutme",
 				"iconPath":"static/aboutme.png",
 				"selectedIconPath":"static/aboutmeopen.png"
