@@ -83,7 +83,7 @@
 				{{a}}
 			</view>
 		</u-popup>
-		<myTipTop :showPopup="chip==2" :name="dataValue" :src="picSrc"></myTipTop>
+		<myTipTop :showPopup="chip==25" :name="dataValue" :src="picSrc"></myTipTop>
 	</view>
 </template>
 
