@@ -20,7 +20,7 @@
 				<view>联系我们</view>
 			</u-button>
 		</view>
-		
+		<ad unit-id="adunit-7aada571f06aec65"></ad>
 		<view style="position: absolute;bottom: 10rpx;margin: 0 auto;">
 			<!-- <text style="text-align: center;" pages/comment/comment>免责声明|隐私政策</text> -->
 			<navigator url="/pages/comment/comment">免责声明|隐私政策</navigator>

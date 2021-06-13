@@ -1,6 +1,8 @@
 <template>
 	<view>
+		
 		<view class="myForm">
+			<!-- <swip></swip> -->
 			<u-form :model="form" ref="uForm" label-width="200rpx !important">
 				<u-form-item label="请选择盒子">
 					<!-- <u-radio-group type="select">
@@ -27,13 +29,14 @@
 			<text>选择盒子类型，输入数量，点击开始抽奖即可体验抽奖的乐趣。</text>
 		</view>
 		<view class="myButton">
-			<u-button type="primary" @click="onSubmit" :ripple="true">开始抽奖</u-button>
+			<u-button type="primary" @click="onSubmit" :ripple="true" throttle-time="10" >开始抽奖</u-button>
 		</view>
 		<view class="myButton">
 			<u-button type="primary" @click="onSeeAll" :ripple="true">查看本次打开的所有盒子</u-button>
 		</view>
 		<!-- #ifdef MP-WEIXIN -->
-		<ad unit-id="adunit-f12e04361a70c0c1"></ad>
+		<!-- <ad unit-id="adunit-f12e04361a70c0c1"></ad> -->
+		<ad unit-id="adunit-c2c9c48c45ec5db4" ad-type="video" ad-theme="white"></ad>
 		<!-- #endif -->
 		<!-- <u-button @click="myclick"> get </u-button> -->
 
@@ -53,13 +56,11 @@
 			<view v-if="o[0] != '0'"> {{ o[1] }} {{ o[0] }}次 </view>
 		</view>
 
-		<view class="myButtonClear">
-			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空背包</u-button>
-		</view>
+		
 		
 		<!-- #ifdef MP-WEIXIN -->
 		<view class="textC">
-			<text>如果你想直接抽取3000次，不想自己点击，可以使用拉满功能哦，广告结束即可获得结果。</text>
+			<text>使用拉满功能可以直接抽取3000次，广告结束即可获得结果。</text>
 			<text>不过建议还是按照次数点击，更有抽奖的乐趣。</text>
 		</view>
 		<view class="myButton">
@@ -67,18 +68,29 @@
 		</view>
 
 		<!-- #endif -->
+		<view class="myButtonClear">
+			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空背包</u-button>
+		</view>
 		<u-top-tips ref="uTips"></u-top-tips>
 		<u-popup v-model="showPopup" mode="left" border-radius="14">
 			<view v-for="(a , index) in onSeeChanceForceData" :key="index" class="myPopup">
 				{{a}}
 			</view>
 		</u-popup>
+		<u-mask :show="showMask">
+			
+			<view class="warp">
+				<u-loading mode="circle">加载中</u-loading>
+				<view>数据加载中ing，请稍后</view>
+			</view>
+		</u-mask>
 	</view>
 </template>
 
 <script>
 	import store from '@/store';
 	import configURL from '@/configNetwork.js';
+	import swip from '@/components/swip/swip.vue';
 	export default {
 		data() {
 			return {
@@ -89,6 +101,7 @@
 				boxValue: '',
 				selectShow: false,
 				type: "number",
+				showMask: true,//遮光罩
 				// list: [
 				// 	{
 				// 		value: 5,
@@ -360,7 +373,8 @@
 					success: (res) => {
 						this.testData = res.data;
 						store.commit('setTestValue', res.data);
-						console.log(res.data)
+						console.log(res.data);
+						this.showMask=false;
 					}
 				});
 				uni.request({
@@ -659,6 +673,9 @@
 				}
 			}
 
+		},
+		components:{
+			swip
 		}
 	}
 </script>
@@ -701,5 +718,12 @@
 	}
 	.textC{
 		margin-left: 10rpx;
+	}
+	.warp {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		
 	}
 </style>

@@ -52,6 +52,15 @@
 		// 	"path": "components/tipTop/tipTop",
 		// 	"style": {}
 		// }
+        // ,{
+        //     "path" : "components/swip/swip/swip",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "",
+        //         "enablePullDownRefresh": false
+        //     }
+            
+        // }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

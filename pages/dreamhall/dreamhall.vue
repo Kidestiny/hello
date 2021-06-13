@@ -9,10 +9,13 @@
 					<u-radio v-for="(item) in dreamHallData" :disabled="disabled" :key="item.data" :name="item.data">
 						{{ item.name }}
 					</u-radio>
+					
 				</u-radio-group>
+				
 			</view>
-
+			
 		</view>
+		<u-loadmore :status="status" :load-text="loadText"  @loadmore="getMoreData"/>
 		<view class="myButtonAll">
 			<view class="myButtonIn">
 				<u-button type="primary" @click="onSubmit(1)" :ripple="true" :disabled="chip==25">抽1次</u-button>
@@ -37,7 +40,7 @@
 			<u-button type="primary" @click="onSeeChance" :ripple="true" >查看皮肤寻宝详情</u-button>
 		</view>
 		<!-- #ifdef MP-WEIXIN -->
-		<ad unit-id="adunit-042aa864551b3b7e" ad-type="video" ad-theme="white"></ad>
+		<!-- <ad unit-id="adunit-042aa864551b3b7e" ad-type="video" ad-theme="white"></ad> -->
 		<!-- #endif -->
 		<view v-if="sumSee" v-for="(o,index) in sum" :key="index">
 			<text>一共寻宝了{{ o[1] }} 次。花费了{{o[1]*300}}元宝， 共获得如下的奖励：
@@ -84,6 +87,13 @@
 			</view>
 		</u-popup>
 		<myTipTop :showPopup="chip==25" :name="dataValue" :src="picSrc"></myTipTop>
+		<u-mask :show="showMask">
+			
+			<view class="warp">
+				<u-loading mode="circle">加载中</u-loading>
+				<view>数据加载中ing，请稍后</view>
+			</view>
+		</u-mask>
 	</view>
 </template>
 
@@ -120,6 +130,14 @@
 				disabled: false,
 				picSrc:"",
 				dataValue:"",       //value对应的汉字
+				status: 'loadmore',
+				loadText: {
+					loadmore: '点击加载更多',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
+				
+				showMask: true,//遮光罩
 			}
 		},
 
@@ -127,7 +145,6 @@
 			this.myclick();
 
 			// 在页面中定义激励视频广告
-
 
 			// 在页面onLoad回调事件中创建激励视频广告实例
 			if (wx.createRewardedVideoAd) {
@@ -174,11 +191,10 @@
 						this.testData = res.data[1];
 						this.chanceData = res.data[2];
 						console.log(this.dreamHallData)
-						console.log(res.data)
+						console.log(res.data);
+						this.showMask=false;
 					}
 				});
-
-
 			},
 			onSubmit(myNumber) {
 				
@@ -426,6 +442,29 @@
 				})
 
 			},
+			
+			getMoreData:function(){
+				console.log('[][][]');
+				this.status='loading';
+				uni.request({
+					// url: "https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/dreanHallData.json?sign=1a8ad80be94014a9b12b5c5c0c85dfc6&t=1616408834",
+					url: configURL.dreanHallDataAdd,
+					method: "GET",
+					success: (res) => {
+						console.log(typeof(this.dreamHallData))
+						console.log((this.dreamHallData))
+						this.dreamHallData =this.dreamHallData.concat(res.data[0]);
+						
+						console.log('1')
+						this.testData =this.testData.concat(res.data[1]);
+						console.log('2')
+						this.chanceData =this.chanceData.concat(res.data[2]);
+						console.log(this.dreamHallData)
+						console.log(res.data)
+						this.status='nomore';
+					}
+				});
+			},
 			onShareAppMessage: function(e) {
 				let title = '盒子模拟器'
 				return {
@@ -500,6 +539,7 @@
 
 	.myButtonAll {
 		display: flex;
+		margin-top: 10rpx;
 	}
 
 	.myButtonIn {
@@ -531,5 +571,12 @@
 
 	.textC {
 		margin-left: 10rpx;
+	}
+	.warp {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		
 	}
 </style>
