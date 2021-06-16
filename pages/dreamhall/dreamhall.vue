@@ -40,7 +40,7 @@
 			<u-button type="primary" @click="onSeeChance" :ripple="true" >查看皮肤寻宝详情</u-button>
 		</view>
 		<!-- #ifdef MP-WEIXIN -->
-		<!-- <ad unit-id="adunit-042aa864551b3b7e" ad-type="video" ad-theme="white"></ad> -->
+		<ad unit-id="adunit-042aa864551b3b7e" ad-type="video" ad-theme="white"></ad>
 		<!-- #endif -->
 		<view v-if="sumSee" v-for="(o,index) in sum" :key="index">
 			<text>一共寻宝了{{ o[1] }} 次。花费了{{o[1]*300}}元宝， 共获得如下的奖励：
@@ -88,10 +88,11 @@
 		</u-popup>
 		<myTipTop :showPopup="chip==25" :name="dataValue" :src="picSrc"></myTipTop>
 		<u-mask :show="showMask">
+		<!-- <u-mask :show="true"> -->
 			
 			<view class="warp">
 				<u-loading mode="circle">加载中</u-loading>
-				<view>数据加载中ing，请稍后</view>
+				<view style="font-size:20px;color: #DD524D;">数据加载中ing，请稍后</view>
 			</view>
 		</u-mask>
 	</view>
@@ -191,6 +192,10 @@
 						this.testData = res.data[1];
 						this.chanceData = res.data[2];
 						console.log(this.dreamHallData)
+						console.log(this.testData)
+						console.log(this.chanceData)
+						console.log("********”")
+						
 						console.log(res.data);
 						this.showMask=false;
 					}
@@ -456,9 +461,24 @@
 						this.dreamHallData =this.dreamHallData.concat(res.data[0]);
 						
 						console.log('1')
-						this.testData =this.testData.concat(res.data[1]);
-						console.log('2')
-						this.chanceData =this.chanceData.concat(res.data[2]);
+						let s = JSON.stringify(this.testData);
+						s=s.slice(0,s.length-1);
+						let q = JSON.stringify(res.data[1]);
+						q=q.slice(1,q.length);
+						let p=s+','+q;
+						this.testData = JSON.parse(p);
+						
+						console.log(this.testData)
+						// this.chanceData =this.chanceData.concat(res.data[2]);
+						
+						s = JSON.stringify(this.chanceData);
+						s=s.slice(0,s.length-1);
+						q = JSON.stringify(res.data[2]);
+						q=q.slice(1,q.length);
+						p=s+','+q;
+						this.chanceData = JSON.parse(p);
+						console.log(this.chanceData)
+						
 						console.log(this.dreamHallData)
 						console.log(res.data)
 						this.status='nomore';

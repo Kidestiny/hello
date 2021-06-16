@@ -81,7 +81,7 @@
 			
 			<view class="warp">
 				<u-loading mode="circle">加载中</u-loading>
-				<view>数据加载中ing，请稍后</view>
+				<view style="font-size:20px;color: #DD524D;">数据加载中ing，请稍后</view>
 			</view>
 		</u-mask>
 	</view>
