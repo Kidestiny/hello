@@ -26,10 +26,10 @@
 			<u-button type="primary" @click="onSeeChance" :ripple="true">查看盒子详情</u-button>
 		</view>
 		<view class="textC">
-			<text>选择盒子类型，输入数量，点击开始抽奖即可体验抽奖的乐趣。</text>
+			<text>选择盒子类型和数量，点击开始抽奖即可体验抽奖的乐趣。</text>
 		</view>
 		<view class="myButton">
-			<u-button type="primary" @click="onSubmit" :ripple="true" throttle-time="10" >开始抽奖</u-button>
+			<u-button type="primary" @click="onSubmit" :ripple="true" throttle-time="1000" >开始抽奖</u-button>
 		</view>
 		<view class="myButton">
 			<u-button type="primary" @click="onSeeAll" :ripple="true">查看本次打开的所有盒子</u-button>
@@ -60,13 +60,16 @@
 		
 		<!-- #ifdef MP-WEIXIN -->
 		<view class="textC">
-			<text>使用拉满功能可以直接抽取3000次，广告结束即可获得结果。</text>
+			<text>拉满功能可以直接抽取3000次，广告结束即可获得结果。</text>
+			<text>抽500盒子广告时间会相对更短。</text>
 			<text>不过建议还是按照次数点击，更有抽奖的乐趣。</text>
 		</view>
 		<view class="myButton">
 			<u-button type="primary" @click="onSubmit3k" :ripple="true">拉满(3k盒子)</u-button>
 		</view>
-
+		<view class="myButton">
+			<u-button type="primary" @click="onSubmit5h" :ripple="true">抽500盒子(广告时间更短)</u-button>
+		</view>
 		<!-- #endif -->
 		<view class="myButtonClear">
 			<u-button type="primary" @click="clear" :plain="true" :ripple="true">清空背包</u-button>
@@ -309,7 +312,8 @@
 				onSeeChanceForceData: '',
 				showPopup: false,
 				boxDataAll: [],
-				videoAd : null
+				videoAd : null,
+				videoAd5h : null
 			}
 		},
 
@@ -322,7 +326,8 @@
 			// 在页面onLoad回调事件中创建激励视频广告实例
 			if (wx.createRewardedVideoAd) {
 			  this.videoAd = wx.createRewardedVideoAd({
-			    adUnitId: 'adunit-38f6375c5c1294f4'
+			    adUnitId: 'adunit-38f6375c5c1294f4',
+				multiton: true // 是否启用多例模式，默认为false
 			  })
 			  this.videoAd.onLoad(() => {})
 			  this.videoAd.onError((err) => {})
@@ -347,6 +352,31 @@
 			
 			// 用户触发广告后，显示激励视频广告
 			
+			if (wx.createRewardedVideoAd) {
+			  this.videoAd5h = wx.createRewardedVideoAd({
+			    adUnitId: 'adunit-f8f33a922ffb3ffc',
+				multiton: true // 是否启用多例模式，默认为false
+			  })
+			  this.videoAd5h.onLoad(() => {})
+			  this.videoAd5h.onError((err) => {})
+			  this.videoAd5h.onClose((status) => {
+				  if (status && status.isEnded || status === undefined) {
+				          // 正常播放结束，下发奖励
+				          // continue you code
+						  console.log('succeed1');
+						  this.onSubmit(500)
+				        } else {
+				          // 播放中途退出，进行提示
+						  console.log('succeed2')
+						  this.$refs.uTips.show({
+						  	title: '要查看完整广告才能获得奖励哦',
+						  	type: 'error',
+						  	duration: '2300'
+						  });
+				        }
+			
+			  })
+			}
 			
 			
 			
@@ -399,7 +429,7 @@
 				console.log("submit!");
 				console.log(this.form.num);
 				console.log(this.form.value);
-				if (myNumber == 3000) {
+				if (myNumber == 3000 || myNumber == 500 ) {
 					this.form.num = 1;
 				}
 				if (
@@ -407,7 +437,7 @@
 					Number(this.form.num) > 0 &&
 					this.form.value !== ""
 				) {
-					if(myNumber == 3000) {
+					if(myNumber == 3000 || myNumber == 500) {
 						this.form.num = Number(myNumber);	
 					}
 					var boxDataAll = this.boxDataAll;
@@ -535,6 +565,33 @@
 						this.videoAd.load()
 						  .then(() => {
 							  this.videoAd.show();
+							  // this.onSubmit(3000);
+							  })
+						  .catch(err => {
+							console.log('激励视频 广告显示失败')
+						  })
+					  });
+					 
+					}
+				}else {
+					this.$refs.uTips.show({
+						title: '请选择盒子类型',
+						type: 'error',
+						duration: '2300'
+					});
+			
+				}
+			},
+			onSubmit5h(){
+				
+				if (this.form.value !== "") {
+					
+					if (this.videoAd5h) {
+					  this.videoAd5h.show().catch(() => {
+						// 失败重试
+						this.videoAd5h.load()
+						  .then(() => {
+							  this.videoAd5h.show();
 							  // this.onSubmit(3000);
 							  })
 						  .catch(err => {

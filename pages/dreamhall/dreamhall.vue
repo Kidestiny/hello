@@ -15,7 +15,7 @@
 			</view>
 			
 		</view>
-		<u-loadmore :status="status" :load-text="loadText"  @loadmore="getMoreData"/>
+		<u-loadmore :status="status" :load-text="loadText"  @loadmore="getMoreDataAdd"/>
 		<view class="myButtonAll">
 			<view class="myButtonIn">
 				<u-button type="primary" @click="onSubmit(1)" :ripple="true" :disabled="chip==25">抽1次</u-button>
@@ -127,13 +127,14 @@
 				showPopup: false,
 				boxDataAll: [],
 				videoAd: null,
+				videoAdAdd: null,
 				skinData: [],
 				disabled: false,
 				picSrc:"",
 				dataValue:"",       //value对应的汉字
 				status: 'loadmore',
 				loadText: {
-					loadmore: '点击加载更多',
+					loadmore: '点击观看广告加载更多皮肤',
 					loading: '努力加载中',
 					nomore: '实在没有了'
 				},
@@ -150,7 +151,8 @@
 			// 在页面onLoad回调事件中创建激励视频广告实例
 			if (wx.createRewardedVideoAd) {
 				this.videoAd = wx.createRewardedVideoAd({
-					adUnitId: 'adunit-4bc68a81adbcf9cf'
+					adUnitId: 'adunit-4bc68a81adbcf9cf',
+					multiton: true // 是否启用多例模式，默认为false
 				})
 				this.videoAd.onLoad(() => {})
 				this.videoAd.onError((err) => {})
@@ -176,7 +178,32 @@
 
 			// 用户触发广告后，显示激励视频广告
 
-
+			if (wx.createRewardedVideoAd) {
+				this.videoAdAdd = wx.createRewardedVideoAd({
+					adUnitId: 'adunit-6f124af96a9fbebd',
+					multiton: true // 是否启用多例模式，默认为false
+				})
+				this.videoAdAdd.onLoad(() => {})
+				this.videoAdAdd.onError((err) => {})
+				this.videoAdAdd.onClose((status) => {
+					if (status && status.isEnded || status === undefined) {
+						// 正常播放结束，下发奖励
+						// continue you code
+						console.log('succeed1');
+						this.getMoreData();
+			
+					} else {
+						// 播放中途退出，进行提示
+						console.log('succeed2')
+						this.$refs.uTips.show({
+							title: '要查看完整广告才能获得奖励哦',
+							type: 'error',
+							duration: '2300'
+						});
+					}
+			
+				})
+			}
 		},
 		methods: {
 			// 点击actionSheet回调
@@ -391,6 +418,22 @@
 
 				}
 			},
+			getMoreDataAdd(){
+				if (this.videoAdAdd) {
+					this.videoAdAdd.show().catch(() => {
+						// 失败重试
+						this.videoAdAdd.load()
+							.then(() => {
+								this.videoAdAdd.show();
+								// this.onSubmit(3000);
+							})
+							.catch(err => {
+								console.log('激励视频 广告显示失败')
+							})
+					});
+				
+				}
+			},
 			open(e) {
 				if (Number(e.target.value) > 50 || Number(e.target.value) <= 0)
 					this.$refs.uTips.show({
@@ -448,7 +491,7 @@
 
 			},
 			
-			getMoreData:function(){
+			getMoreData(){
 				console.log('[][][]');
 				this.status='loading';
 				uni.request({
