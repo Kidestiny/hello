@@ -87,6 +87,9 @@
 				<view style="font-size:20px;color: #DD524D;">数据加载中ing，请稍后</view>
 			</view>
 		</u-mask>
+		<view class="floatBotton">
+			<u-button type="error" @click="goToPage('/pages/takeout/takeout')" shape="square">外卖优惠券</u-button>
+		</view>
 	</view>
 </template>
 
@@ -728,6 +731,12 @@
 					query: '',
 					imageUrl: 'https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/miniproject.png?sign=fc4192a8be6eebc6078e20bac23fac82&t=1616030627',
 				}
+			},
+			goToPage(url) {
+				if (!url) return;
+				uni.navigateTo({
+					url
+				});
 			}
 
 		},
@@ -782,5 +791,11 @@
 		justify-content: center;
 		height: 100%;
 		
+	}
+	.floatBotton{
+		position:fixed;
+		top:30px;
+		right:5px;
+		z-index: 1000;
 	}
 </style>

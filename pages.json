@@ -37,6 +37,12 @@
 			"style": {
 				"navigationBarTitleText": "皮肤の回廊"
 			}
+		},
+		{
+			"path": "pages/takeout/takeout",
+			"style": {
+				"navigationBarTitleText": "大额优惠券"
+			}
 		}
         // ,{
         //     "path" : "components/tipTop/tipTop",
