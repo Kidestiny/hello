@@ -1,5 +1,12 @@
 dreamHallData = [
+	
     {
+        "name": "一往无前*袁绍",
+        "data": "yw_ys",
+        "chance": "yw_ys_chance",
+        "src":"https://sgs-7gp2uaju8f978987-1304922515.tcloudbaseapp.com/dreamHallPic/yuanshao.jpg?sign=73798bd0e004a0ce48b351e42f77f32b&t=1630236649",
+    },
+	{
         "name": "灵魂歌王-留赞",
         "data": "lh_lz",
         "chance": "lh_lz_chance",
@@ -32,7 +39,65 @@ dreamHallData = [
 ]
 
 skinData = {
-    "lh_lz": [{
+    
+	"yw_ys": [{
+	    "chance": 9.495,
+	    "name": "菜篮子*2",
+	    "number": 2
+	},
+	{
+	    "chance": 15,
+	    "name": "点将卡*2",
+	    "number": 2
+	},
+	{
+	    "chance": 20,
+	    "name": "换将卡*2",
+	    "number": 2
+	},
+	{
+	    "chance": 20,
+	    "name": "手气卡*2",
+	    "number": 2
+	},
+	{
+	    "chance": 10,
+	    "name": "进阶丹*1",
+	    "number": 1
+	},
+	{
+	    "chance": 10,
+	    "name": "雁翎甲",
+	    "number": 1
+	},
+	{
+	    "chance": 6,
+	    "name": "招募令",
+	    "number": 1
+	},
+	{
+	    "chance": 4,
+	    "name": "史诗宝珠碎片*1",
+	    "number": 1
+	},
+	{
+	    "chance": 5,
+	    "name": "欢乐豆*50",
+	    "number": 50
+	},
+	{
+	    "chance": 0.5,
+	    "name": "史诗宝珠*1",
+	    "number": 1
+	},
+	{
+	    "chance": 0.005,
+	    "name": "🐏徽瑜",
+	    "number": 1,
+	    "power": 500
+	}
+	],
+	"lh_lz": [{
         "chance": 9.495,
         "name": "菜篮子*2",
         "number": 2
@@ -322,7 +387,34 @@ skinData = {
 }
 
 newChipChance = {
-    "lh_lz_chance": [{
+    "yw_ys_chance": [{
+        0: 100,
+        1: 96,
+        2: 92,
+        3: 88,
+        4: 84,
+        5: 80,
+        6: 76,
+        7: 72,
+        8: 68,
+        9: 64,
+        10: 42.86,
+        11: 40.0025,
+        12: 37.145,
+        13: 34.2875,
+        14: 31.43,
+        15: 25,
+        16: 22.5,
+        17: 20,
+        18: 17.5,
+        19: 15,
+        20: 7.62,
+        21: 6.0025,
+        22: 4.385,
+        23: 2.7675,
+        24: 1.15,
+    }],
+	"lh_lz_chance": [{
         0: 100,
         1: 96,
         2: 92,

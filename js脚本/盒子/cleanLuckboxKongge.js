@@ -13,3 +13,10 @@ fs.writeFile('./luckboxTest.js',str,(error)=>{
         console.log('succeed');
     }
 })
+fs.writeFile('./test_data.json',str,(error)=>{
+    if(error){
+        console.log('wrong');
+    }else{
+        console.log('succeed');
+    }
+})
