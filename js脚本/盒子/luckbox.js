@@ -1,6 +1,12 @@
 {
     "boxData": [
 		{
+		    "name": "盛典礼盒2021",
+		    "data": "sd_box_2021",
+		    "coin": 100,
+		    "discount": 0
+		},
+		{
 		    "name": "立冬福袋2021",
 		    "data": "ld_fd_2021",
 		    "coin": 100
@@ -254,6 +260,107 @@
             "data": "gou2_box"
         }
     ],
+	"sd_box_2021": [
+	    {
+	        "chance": 12.830,
+	        "name": "菜篮子",
+	        "number": 2
+	    },
+	    {
+	        "chance": 30,
+	        "name": "换将卡",
+	        "number": 2
+	    },
+	    {
+	        "chance": 30,
+	        "name": "手气卡",
+	        "number": 2
+	    },
+	    {
+	        "chance": 10,
+	        "name": "进阶丹",
+	        "number": 1
+	    },
+	    {
+	        "chance": 2.5,
+	        "name": "雁翎甲",
+	        "number": 1
+	    },
+	    {
+	        "chance": 2.5,
+	        "name": "招募令",
+	        "number": 1
+	    },
+	    {
+	        "chance": 5,
+	        "name": "史诗体验卡*1",
+	        "number": 1
+	    },
+	    {
+	        "chance": 5,
+	        "name": "欢乐豆*22",
+	        "number": 50
+	    },
+	    {
+	        "chance": 0.5,
+	        "name": "史诗宝珠碎片",
+	        "number": 1
+	    },
+	    {
+	        "chance": 0.5,
+	        "name": "菜篮子*99",
+	        "number": 1,
+	        "power": 120
+	    },
+	    {
+	        "chance": 0.5,
+	        "name": "会员卡（31天）",
+	        "number": 1,
+	        "power": 120
+	    },
+	    {
+	        "chance": 0.25,
+	        "name": "界孙鲁班",
+	        "number": 1,
+	        "power": 120
+	    },
+	    {
+	        "chance": 0.25,
+	        "name": "史诗宝珠*1",
+	        "number": 1,
+	        "power": 120
+	    },
+	    {
+	        "chance": 0.05,
+	        "name": "虎啸生风*许褚动态包",
+	        "number": 1000
+	    },
+	    {
+	        "chance": 0.05,
+	        "name": "公孙康",
+	        "number": 1000
+	    },
+	    {
+	        "chance": 0.05,
+	        "name": "将魂*1000",
+	        "number": 1,
+	        "power": 500
+	    },
+	    {
+	        "chance": 0.01,
+	        "name": "刘璋",
+	        "number": 1,
+	        "power": 500
+	    },
+	    {
+	        "chance": 0.01,
+	        "name": "史诗宝珠*33",
+	        "number": 1,
+	        "power": 500
+	    }
+	],
+	
+	
 	"ld_box_2021": [
         {
             "chance": 5.715,
