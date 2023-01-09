@@ -1,5 +1,6 @@
 let configURL = {};
 let url = "https://sgs.jackjam.xyz/";
+url = "https://7367-sgs-5gwi2f826ca612c8-1304922515.tcb.qcloud.la/";
 if(process.env.NODE_ENV === 'development'){
 	    console.log('开发环境 config');
 		configURL ={
