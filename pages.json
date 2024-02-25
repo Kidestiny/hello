@@ -13,6 +13,26 @@
             }
             
         },
+		
+		{
+		    "path" : "pages/tabbar/tabbar-1/tabbar-1",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "盒子模拟器",
+		        "enablePullDownRefresh": true
+		    }
+		    
+		},
+		{
+		    "path" : "pages/tabbar/tabbar-2/tabbar-2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "盒子模拟器",
+		        "enablePullDownRefresh": true
+		    }
+		    
+		},
+		
 		//#ifndef MP-QQ
 		{
 			"path": "pages/index/index",
@@ -29,7 +49,7 @@
 		{
 			"path": "pages/aboutme/aboutme",
 			"style": {
-				"navigationBarTitleText": "关于我&我要抽武将"
+				"navigationBarTitleText": "关于我"
 			}
 		},
 		{
@@ -96,10 +116,22 @@
 		
 		"list":[
 			{
-				"text":"首页",
+				"text":"抽盒子",
 				"pagePath":"pages/luckbox/luckbox",
 				"iconPath":"static/luckbox.png",
 				"selectedIconPath":"static/luckboxopen.png"
+			},
+			{
+				"pagePath": "pages/tabbar/tabbar-1/tabbar-1",
+				"iconPath": "static/img/tabbar/home.png",
+				"selectedIconPath": "static/img/tabbar/homeactive.png",
+				"text": "抽武将"
+			},
+			{
+				"pagePath": "pages/tabbar/tabbar-2/tabbar-2",
+				"iconPath": "static/img/tabbar/guanzhu.png",
+				"selectedIconPath": "static/img/tabbar/guanzhuactive.png",
+				"text": "抽皮肤"
 			},
 			// {
 			// 	"text":"详情",
@@ -121,7 +153,7 @@
 				"selectedIconPath":"static/skinopen.png"
 			},
 			{
-				"text":"关于我&我要抽武将",
+				"text":"关于我",
 				"pagePath":"pages/aboutme/aboutme",
 				"iconPath":"static/aboutme.png",
 				"selectedIconPath":"static/aboutmeopen.png"

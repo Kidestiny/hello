@@ -2,7 +2,6 @@
 	<view>
 		
 		<view class="myForm">
-			<!-- <swip></swip> -->
 			<u-form :model="form" ref="uForm" label-width="200rpx !important">
 				<u-form-item label="请选择盒子">
 					<!-- <u-radio-group type="select">
@@ -96,7 +95,6 @@
 <script>
 	import store from '@/store';
 	import configURL from '@/configNetwork.js';
-	import swip from '@/components/swip/swip.vue';
 	export default {
 		data() {
 			return {
@@ -740,9 +738,6 @@
 			}
 
 		},
-		components:{
-			swip
-		}
 	}
 </script>
 <style lang="scss">
